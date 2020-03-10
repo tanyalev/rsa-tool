@@ -2,6 +2,8 @@ package ua.edu.sumdu.crypto.levchenko.rsatool;
 
 import ua.edu.sumdu.crypto.levchenko.rsatool.models.KeyPair;
 import ua.edu.sumdu.crypto.levchenko.rsatool.models.KeyPairGenerator;
+import ua.edu.sumdu.crypto.levchenko.rsatool.models.rsa.PkcsPadding;
+import ua.edu.sumdu.crypto.levchenko.rsatool.models.rsa.Rsa;
 import ua.edu.sumdu.crypto.levchenko.rsatool.models.rsa.RsaKeyPairGenerator;
 
 public class Main {
@@ -10,5 +12,8 @@ public class Main {
         KeyPair keyPair = keyPairGenerator.generateKeyPair(2048);
         System.out.println(keyPair.getPublicKey());
         System.out.println(keyPair.getPrivateKey());
+
+        Rsa rsa = new Rsa();
+        rsa.setPadding(new PkcsPadding());
     }
 }

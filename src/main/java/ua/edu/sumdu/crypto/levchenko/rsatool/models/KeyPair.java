@@ -1,5 +1,7 @@
 package ua.edu.sumdu.crypto.levchenko.rsatool.models;
 
+import org.json.JSONObject;
+
 import java.math.BigInteger;
 import java.util.Objects;
 
@@ -34,13 +36,26 @@ public class KeyPair {
         return Objects.hash(getPublicKey(), getPrivateKey());
     }
 
-    public static class PublicKey {
+    private static class Key {
+        public String dump() {
+            JSONObject jsonObject = new JSONObject(this);
+            return jsonObject.toString();
+        }
+    }
+
+    public static class PublicKey extends Key {
         private BigInteger n;
         private BigInteger e;
 
         public PublicKey(BigInteger n, BigInteger e) {
             this.n = n;
             this.e = e;
+        }
+
+        public PublicKey(String rawKey) {
+            JSONObject jsonObject = new JSONObject(rawKey);
+            n = jsonObject.getBigInteger("N");
+            e = jsonObject.getBigInteger("E");
         }
 
         public BigInteger getN() {
@@ -74,13 +89,19 @@ public class KeyPair {
         }
     }
 
-    public static class PrivateKey {
+    public static class PrivateKey extends Key {
         private BigInteger n;
         private BigInteger d;
 
         public PrivateKey(BigInteger n, BigInteger d) {
             this.n = n;
             this.d = d;
+        }
+
+        public PrivateKey(String rawKey) {
+            JSONObject jsonObject = new JSONObject(rawKey);
+            n = jsonObject.getBigInteger("N");
+            d = jsonObject.getBigInteger("D");
         }
 
         public BigInteger getN() {
