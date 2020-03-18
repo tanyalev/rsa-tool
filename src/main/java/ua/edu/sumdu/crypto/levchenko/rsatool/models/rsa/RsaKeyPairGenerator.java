@@ -28,7 +28,7 @@ public class RsaKeyPairGenerator implements KeyPairGenerator {
 
                 BigInteger d = e.modInverse(totient);
                 if (!d.equals(BigInteger.ZERO) && !d.equals(BigInteger.ONE)) {
-                    return new KeyPair(new KeyPair.PublicKey(n, e), new KeyPair.PrivateKey(n, d));
+                    return new KeyPair(new KeyPair.PublicKey(n, e, keySize), new KeyPair.PrivateKey(n, d, keySize));
                 }
             }
         }
