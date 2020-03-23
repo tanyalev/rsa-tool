@@ -78,7 +78,9 @@ public class Rsa {
         }
 
         public String toRawData() {
-            JSONObject jsonObject = new JSONObject(this);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("data", new String(data));
+            jsonObject.put("padding", padding);
             String rawData = jsonObject.toString();
             return Base64.getEncoder().encodeToString(rawData.getBytes());
         }

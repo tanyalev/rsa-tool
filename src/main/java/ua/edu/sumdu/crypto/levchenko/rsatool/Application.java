@@ -37,8 +37,9 @@ public class Application {
             log.warning(String.format("\"%s\" file already exists.", file));
         }
 
-        FileWriter fileWriter = new FileWriter(file);
-        fileWriter.write(data);
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            fileWriter.write(data);
+        }
     }
 
     private String readFromFile(String file) throws Exception {
@@ -62,6 +63,9 @@ public class Application {
 
         String rawPublicKey = keyPair.getPublicKey().toRawData();
         String rawPrivateKey = keyPair.getPrivateKey().toRawData();
+
+        log.info(rawPublicKey);
+        log.info(rawPrivateKey);
 
         String publicKeyFilename = String.format("%s_pub.key", file.strip());
         String privateKeyFilename = String.format("%s_priv.key", file.strip());

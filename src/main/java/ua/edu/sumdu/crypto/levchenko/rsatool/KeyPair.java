@@ -37,15 +37,7 @@ public class KeyPair {
         return Objects.hash(getPublicKey(), getPrivateKey());
     }
 
-    private static class Key {
-        public String toRawData() {
-            JSONObject jsonObject = new JSONObject(this);
-            String rawData = jsonObject.toString();
-            return Base64.getEncoder().encodeToString(rawData.getBytes());
-        }
-    }
-
-    public static class PublicKey extends Key {
+    public static class PublicKey {
         private BigInteger N;
         private BigInteger E;
         private int size;
@@ -63,6 +55,15 @@ public class KeyPair {
             BigInteger e = jsonObject.getBigInteger("E");
             int size = jsonObject.getInt("size");
             return new PublicKey(n, e, size);
+        }
+
+        public String toRawData() {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("N", N.toString());
+            jsonObject.put("E", E.toString());
+            jsonObject.put("size", size);
+            String rawData = jsonObject.toString();
+            return Base64.getEncoder().encodeToString(rawData.getBytes());
         }
 
         public BigInteger getN() {
@@ -102,7 +103,7 @@ public class KeyPair {
         }
     }
 
-    public static class PrivateKey extends Key {
+    public static class PrivateKey {
         private BigInteger N;
         private BigInteger D;
         private int size;
@@ -120,6 +121,15 @@ public class KeyPair {
             BigInteger d = jsonObject.getBigInteger("D");
             int size = jsonObject.getInt("size");
             return new PrivateKey(n, d, size);
+        }
+
+        public String toRawData() {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("N", N.toString());
+            jsonObject.put("D", D.toString());
+            jsonObject.put("size", size);
+            String rawData = jsonObject.toString();
+            return Base64.getEncoder().encodeToString(rawData.getBytes());
         }
 
         public BigInteger getN() {
