@@ -1,8 +1,8 @@
-package ua.edu.sumdu.crypto.levchenko.rsatool.models.rsa;
+package ua.edu.sumdu.crypto.levchenko.rsatool.rsa;
 
 import org.json.JSONObject;
-import ua.edu.sumdu.crypto.levchenko.rsatool.models.KeyPair;
-import ua.edu.sumdu.crypto.levchenko.rsatool.models.rsa.exceptions.RsaWrongPaddingRsaException;
+import ua.edu.sumdu.crypto.levchenko.rsatool.KeyPair;
+import ua.edu.sumdu.crypto.levchenko.rsatool.rsa.exceptions.RsaWrongPaddingRsaException;
 
 import java.util.Arrays;
 import java.util.Base64;

@@ -1,4 +1,4 @@
-package ua.edu.sumdu.crypto.levchenko.rsatool.models;
+package ua.edu.sumdu.crypto.levchenko.rsatool;
 
 import org.json.JSONObject;
 

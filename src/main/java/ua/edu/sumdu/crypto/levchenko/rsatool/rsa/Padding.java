@@ -1,8 +1,8 @@
-package ua.edu.sumdu.crypto.levchenko.rsatool.models.rsa;
+package ua.edu.sumdu.crypto.levchenko.rsatool.rsa;
 
-import ua.edu.sumdu.crypto.levchenko.rsatool.models.Decryptor;
-import ua.edu.sumdu.crypto.levchenko.rsatool.models.Encryptor;
-import ua.edu.sumdu.crypto.levchenko.rsatool.models.KeyPair;
+import ua.edu.sumdu.crypto.levchenko.rsatool.Decryptor;
+import ua.edu.sumdu.crypto.levchenko.rsatool.Encryptor;
+import ua.edu.sumdu.crypto.levchenko.rsatool.KeyPair;
 
 import java.math.BigInteger;
 

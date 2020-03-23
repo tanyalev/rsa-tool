@@ -1,13 +1,12 @@
-package ua.edu.sumdu.crypto.levchenko.rsatool.models.rsa;
+package ua.edu.sumdu.crypto.levchenko.rsatool.rsa;
 
-import ua.edu.sumdu.crypto.levchenko.rsatool.models.KeyPair;
-import ua.edu.sumdu.crypto.levchenko.rsatool.models.KeyPairGenerator;
+import ua.edu.sumdu.crypto.levchenko.rsatool.KeyPair;
 
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Random;
 
-public class RsaKeyPairGenerator implements KeyPairGenerator {
+public class RsaKeyPairGenerator {
     public KeyPair generateKeyPair(int keySize) {
         assert List.of(512, 1024, 2048, 4096).contains(keySize) : "Key size must be one of 512, 1024, 2048, 4096.";
 
