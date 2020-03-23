@@ -1,5 +1,7 @@
 package ua.edu.sumdu.crypto.levchenko.rsatool;
 
+import java.math.BigInteger;
+
 public interface Decryptor {
-    byte[] decrypt(KeyPair.PrivateKey key, byte[] data);
+    BigInteger decrypt(KeyPair.PrivateKey key, BigInteger data);
 }

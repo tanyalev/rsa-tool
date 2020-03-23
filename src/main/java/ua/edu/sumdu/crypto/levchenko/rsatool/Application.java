@@ -64,9 +64,6 @@ public class Application {
         String rawPublicKey = keyPair.getPublicKey().toRawData();
         String rawPrivateKey = keyPair.getPrivateKey().toRawData();
 
-        log.info(rawPublicKey);
-        log.info(rawPrivateKey);
-
         String publicKeyFilename = String.format("%s_pub.key", file.strip());
         String privateKeyFilename = String.format("%s_priv.key", file.strip());
 

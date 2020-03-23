@@ -3,6 +3,7 @@ package ua.edu.sumdu.crypto.levchenko.rsatool.rsa;
 import ua.edu.sumdu.crypto.levchenko.rsatool.KeyPair;
 
 import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 
@@ -12,24 +13,21 @@ public class RsaKeyPairGenerator {
 
         int keyPartSize = keySize / 2;
 
-        BigInteger e = BigInteger.valueOf(65537);
+        Random random = new SecureRandom();
+        BigInteger p = BigInteger.probablePrime(keyPartSize, random);
+        BigInteger q = BigInteger.probablePrime(keyPartSize, random);
 
-        while (true) {
-            BigInteger p = new BigInteger(keyPartSize, new Random());
-            BigInteger q = new BigInteger(keyPartSize, new Random());
+        BigInteger n = p.multiply(q);
+        BigInteger phi = p.subtract(BigInteger.ONE)
+                .multiply(q.subtract(BigInteger.ONE));
 
-            BigInteger n = p.multiply(q);
-            if (n.bitLength() == keySize) {
-                p = p.subtract(BigInteger.ONE);
-                q = q.subtract(BigInteger.ONE);
+        BigInteger e;
+        do {
+            e = new BigInteger(phi.bitLength(), random);
+        } while (e.compareTo(BigInteger.ONE) <= 0 || e.compareTo(phi) >= 0 || !e.gcd(phi).equals(BigInteger.ONE));
 
-                BigInteger totient = p.multiply(q);
+        BigInteger d = e.modInverse(phi);
 
-                BigInteger d = e.modInverse(totient);
-                if (!d.equals(BigInteger.ZERO) && !d.equals(BigInteger.ONE)) {
-                    return new KeyPair(new KeyPair.PublicKey(n, e, keySize), new KeyPair.PrivateKey(n, d, keySize));
-                }
-            }
-        }
+        return new KeyPair(new KeyPair.PublicKey(n, e, keySize), new KeyPair.PrivateKey(n, d, keySize));
     }
 }
