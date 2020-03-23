@@ -7,7 +7,7 @@ import ua.edu.sumdu.crypto.levchenko.rsatool.KeyPair;
 import java.math.BigInteger;
 
 public enum Padding implements Encryptor, Decryptor {
-    NONE("None") {
+    NONE {
         @Override
         public byte[] decrypt(KeyPair.PrivateKey key, byte[] data) {
             BigInteger c = new BigInteger(1, data);
@@ -23,7 +23,7 @@ public enum Padding implements Encryptor, Decryptor {
         }
     },
 
-    PKCS1("PKCS1") {
+    PKCS1 {
         @Override
         public byte[] encrypt(KeyPair.PublicKey publicKey, byte[] data) {
             return null;
@@ -34,15 +34,4 @@ public enum Padding implements Encryptor, Decryptor {
             return null;
         }
     };
-
-    private String name;
-
-    Padding(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
 }
