@@ -32,7 +32,7 @@ public class Application {
     private void writeToFile(String file, String data) throws Exception {
         File outputFile = new File(file);
         if (outputFile.createNewFile()) {
-            log.fine(String.format("\"%s\" file has been created.", file));
+            log.info(String.format("\"%s\" file has been created.", file));
         } else {
             log.warning(String.format("\"%s\" file already exists.", file));
         }
@@ -133,72 +133,93 @@ public class Application {
     }
 
     private void prepareOptions() {
+        Option fileRequiredOption = Option.builder("f")
+                .hasArg()
+                .argName("file name")
+                .desc("file name for a different reason")
+                .build();
         Option generateKeyPairOption = Option.builder("k")
-                .argName("property=value")
-                .numberOfArgs(2)
+                .hasArg()
+                .argName("key size")
                 .desc("generate key pair to <file>s with selected key <size>")
                 .build();
         Option encryptDataOption = Option.builder("e")
-                .argName("property=value")
-                .numberOfArgs(2)
+                .hasArg()
+                .argName("public key file name")
                 .desc("encrypt data from <file> with selected <pubkey>")
                 .build();
         Option decryptDataOption = Option.builder("d")
-                .argName("property=value")
-                .numberOfArgs(2)
+                .hasArg()
+                .argName("private key file name")
                 .desc("decrypt data from <file> with selected <privkey>")
+                .build();
+        Option usePaddingOption = Option.builder("p")
+                .hasArg(false)
+                .required(false)
+                .desc("use PKCS #1 padding (for encryption)")
+                .build();
+        Option helpOption = Option.builder("h")
+                .hasArg(false)
+                .required(false)
+                .desc("print usage message")
                 .build();
 
         options = new Options();
+        options.addOption(fileRequiredOption);
         options.addOption(generateKeyPairOption);
         options.addOption(encryptDataOption);
         options.addOption(decryptDataOption);
+        options.addOption(usePaddingOption);
+        options.addOption(helpOption);
     }
 
-    private void setupActionAndProperties(CommandLine line) {
+    private Consumer<Properties> setupPropertiesForAction(CommandLine line) {
         if (Objects.isNull(line)) {
-            action = this::error;
-            return;
+            return this::error;
         }
 
-        boolean propertiesIsCorrect;
+        if (line.hasOption("h")) {
+            return this::usage;
+        }
+
+        properties = new Properties();
+
+        if (line.hasOption("f")) {
+            String file = line.getOptionValue("f");
+            properties.setProperty("file", file);
+        }
 
         if (line.hasOption("k")) {
-            properties = line.getOptionProperties("k");
-            propertiesIsCorrect = properties.contains("file") && properties.contains("size");
-            action = this::generateKeyPair;
-        } else if (line.hasOption("e")) {
-            properties = line.getOptionProperties("e");
-            propertiesIsCorrect = properties.contains("file")
-                    && properties.contains("pubkey")
-                    && properties.contains("padding");
-            action = this::encryptData;
-        } else if (line.hasOption("d")) {
-            properties = line.getOptionProperties("d");
-            propertiesIsCorrect = properties.contains("file") && properties.contains("privkey");
-            action = this::decryptData;
-        } else {
-            action = this::usage;
-            propertiesIsCorrect = true;
-            properties = new Properties();
+            String keySize = line.getOptionValue("k");
+            properties.setProperty("size", keySize);
+            return this::generateKeyPair;
         }
 
-        if (!propertiesIsCorrect) {
-            log.severe("Properties is incorrect, please, provide more accurate data!");
-            action = this::error;
+        properties.setProperty("padding", Boolean.toString(line.hasOption("p")));
+
+        if (line.hasOption("e")) {
+            String publicKeyFile = line.getOptionValue("e");
+            properties.setProperty("pubkey", publicKeyFile);
+            return this::encryptData;
         }
+
+        if (line.hasOption("d")) {
+            String privateKeyFile = line.getOptionValue("d");
+            properties.setProperty("privkey", privateKeyFile);
+            return this::decryptData;
+        }
+
+        return this::usage;
     }
 
     private void parseCommandLineArgs(String[] args) {
-        CommandLineParser parser = new DefaultParser();
-        CommandLine line = null;
         try {
-            line = parser.parse(options, args);
+            CommandLineParser parser = new DefaultParser();
+            CommandLine line = parser.parse(options, args);
+            action = setupPropertiesForAction(line);
         } catch (ParseException e) {
             log.severe(e.getMessage());
             action = this::error;
         }
-
-        setupActionAndProperties(line);
     }
 }
