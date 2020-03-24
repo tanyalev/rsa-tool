@@ -1,7 +1,5 @@
 package ua.edu.sumdu.crypto.levchenko.rsatool.rsa;
 
-import ua.edu.sumdu.crypto.levchenko.rsatool.KeyPair;
-
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.List;

@@ -2,7 +2,6 @@ package ua.edu.sumdu.crypto.levchenko.rsatool.rsa;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import ua.edu.sumdu.crypto.levchenko.rsatool.KeyPair;
 import ua.edu.sumdu.crypto.levchenko.rsatool.rsa.exceptions.RsaWrongPaddingRsaException;
 
 import java.math.BigInteger;

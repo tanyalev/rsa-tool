@@ -1,6 +1,7 @@
 package ua.edu.sumdu.crypto.levchenko.rsatool;
 
 import org.apache.commons.cli.*;
+import ua.edu.sumdu.crypto.levchenko.rsatool.rsa.KeyPair;
 import ua.edu.sumdu.crypto.levchenko.rsatool.rsa.Padding;
 import ua.edu.sumdu.crypto.levchenko.rsatool.rsa.Rsa;
 import ua.edu.sumdu.crypto.levchenko.rsatool.rsa.RsaKeyPairGenerator;

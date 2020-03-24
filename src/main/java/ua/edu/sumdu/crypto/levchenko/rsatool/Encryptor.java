@@ -1,5 +1,7 @@
 package ua.edu.sumdu.crypto.levchenko.rsatool;
 
+import ua.edu.sumdu.crypto.levchenko.rsatool.rsa.KeyPair;
+
 import java.math.BigInteger;
 
 public interface Encryptor {
