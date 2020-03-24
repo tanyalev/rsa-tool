@@ -12,6 +12,9 @@ import java.util.Base64;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static ua.edu.sumdu.crypto.levchenko.rsatool.rsa.Util.int2string;
+import static ua.edu.sumdu.crypto.levchenko.rsatool.rsa.Util.string2int;
+
 public class Rsa {
     private Padding padding;
 
@@ -38,7 +41,7 @@ public class Rsa {
      * })
      * */
     public Message encrypt(KeyPair.PublicKey publicKey, String data) throws Exception {
-        int charsPerChunk = (publicKey.getN().bitLength() - 1) / 8;
+        int charsPerChunk = padding.getCharsPerChunk(publicKey.getN());
 
         StringBuilder dataBuilder = new StringBuilder(data);
         while (dataBuilder.length() % charsPerChunk != 0) {
@@ -78,23 +81,6 @@ public class Rsa {
         }
         throw new RsaWrongPaddingRsaException(String.format("Message padding %s is not selected one %s!",
                 message.getPadding(), padding.toString()));
-    }
-
-    private BigInteger string2int(String str) {
-        byte[] b = new byte[str.length()];
-        for (int i = 0; i < b.length; i++) {
-            b[i] = (byte) str.charAt(i);
-        }
-        return new BigInteger(1, b);
-    }
-
-    private String int2string(BigInteger n) {
-        byte[] b = n.toByteArray();
-        StringBuilder str = new StringBuilder();
-        for (byte symbol : b) {
-            str.append((char) symbol);
-        }
-        return str.toString();
     }
 
     public static class Message {

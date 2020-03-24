@@ -82,7 +82,7 @@ public class Application {
 
         String dataFile = properties.getProperty("file");
         String publicKeyFile = properties.getProperty("pubkey");
-        boolean usePadding = Boolean.getBoolean(properties.getProperty("padding"));
+        boolean usePadding = Boolean.parseBoolean(properties.getProperty("padding"));
 
         try {
             String data = readFromFile(dataFile);
