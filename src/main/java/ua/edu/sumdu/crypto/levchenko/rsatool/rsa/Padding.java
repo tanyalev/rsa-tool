@@ -81,8 +81,7 @@ public enum Padding implements Encryptor, Decryptor {
             Arrays.fill(decryptedData, (byte) 0x00);
             System.arraycopy(notPaddedDecryptedData, 0, decryptedData,
                     keyLen - notPaddedDecryptedData.length, notPaddedDecryptedData.length);
-
-            log.info(Arrays.toString(decryptedData));
+            
             if (decryptedData[0] != (byte) 0x00 || decryptedData[1] != (byte) 0x02) {
                 log.warning("message hasn't PKCS #1 padding");
                 return bytes2int(decryptedData);
