@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="520.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem onAction="#generateKeyPair" mnemonicParsing="false" text="Generate key pair" />
+            <MenuItem onAction="#importPublicKey" mnemonicParsing="false" text="Import public key" />
+            <MenuItem onAction="#importPrivateKey" mnemonicParsing="false" text="Import private key" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem onAction="#quit" mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem onAction="#about" mnemonicParsing="false" text="About rsa-tool" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TitledPane alignment="CENTER" animated="false" collapsible="false" text="Encryption" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <TextField fx:id="publicKeyTextField" editable="false" promptText="publickey_pub.key" HBox.hgrow="ALWAYS" />
+                              <Button onAction="#importPublicKey" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="Import public key" />
+                              <Label fx:id="publicKeySizeLabel" alignment="CENTER" text="Key size:" visible="false" />
+                              <Label fx:id="publicKeySizeValueLabel" minWidth="50.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </padding>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <TextArea fx:id="textToEncryptTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Type some text to encrypt..." wrapText="true" HBox.hgrow="ALWAYS" />
+                              <VBox prefHeight="57.0" prefWidth="140.0" spacing="5.0">
+                                 <children>
+                                    <Button fx:id="importTextToEncryptButton" onAction="#importTextToEncrypt" mnemonicParsing="false" prefHeight="26.0" prefWidth="140.0" text="Import text" VBox.vgrow="ALWAYS" />
+                                    <Button fx:id="encryptButton" onAction="#encrypt" mnemonicParsing="false" prefHeight="26.0" prefWidth="146.0" text="Encrypt" VBox.vgrow="ALWAYS" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </padding>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <CheckBox fx:id="usePkcsPaddingCheckBox" mnemonicParsing="false" text="Use PKCS #1 padding" HBox.hgrow="ALWAYS" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </padding></HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <TextArea fx:id="encryptedTextTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" promptText="Encrypted text..." wrapText="true" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="exportEncryptedTextButton" onAction="#exportEncryptedText" mnemonicParsing="false" prefHeight="42.0" prefWidth="141.0" text="Export" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </padding></HBox>
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <TitledPane alignment="CENTER" animated="false" collapsible="false" text="Decryption" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <TextField fx:id="privateKeyTextField" editable="false" promptText="privatekey_priv.key" HBox.hgrow="ALWAYS" />
+                              <Button onAction="#importPrivateKey" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="Import private key" />
+                              <Label fx:id="privateKeySizeLabel" alignment="CENTER" text="Key size:" visible="false" />
+                              <Label fx:id="privateKeySizeValueLabel" minWidth="50.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </padding>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <TextArea fx:id="textToDecryptTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Type some text to decrypt..." wrapText="true" HBox.hgrow="ALWAYS" />
+                              <VBox prefHeight="57.0" prefWidth="140.0" spacing="5.0">
+                                 <children>
+                                    <Button fx:id="importTextToDecryptButton" onAction="#importTextToDecrypt" mnemonicParsing="false" prefHeight="26.0" prefWidth="140.0" text="Import text" VBox.vgrow="ALWAYS" />
+                                    <Button fx:id="decryptButton" onAction="#decrypt" mnemonicParsing="false" prefHeight="26.0" prefWidth="146.0" text="Decrypt" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </padding>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <CheckBox fx:id="pkcsPaddingUsedCheckBox" disable="true" mnemonicParsing="false" text="PKCS #1 padding used" HBox.hgrow="ALWAYS" />
+                           </children>
+                           <padding>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </padding>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                           <children>
+                              <TextArea fx:id="decryptedTextTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" promptText="Decrypted text..." wrapText="true" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="exportDecryptedTextButton" onAction="#exportDecryptedText" mnemonicParsing="false" prefHeight="42.0" prefWidth="141.0" text="Export" />
+                           </children>
+                           <padding>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+         </children>
+      </VBox>
+      <Label fx:id="statusLabel" alignment="BOTTOM_LEFT" prefHeight="15.0" prefWidth="630.0">
+         <VBox.margin>
+            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+         </VBox.margin>
+      </Label>
+  </children>
+</VBox>

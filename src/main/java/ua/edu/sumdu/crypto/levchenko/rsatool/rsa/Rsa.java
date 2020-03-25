@@ -11,8 +11,8 @@ import java.util.Base64;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static ua.edu.sumdu.crypto.levchenko.rsatool.rsa.Util.int2string;
-import static ua.edu.sumdu.crypto.levchenko.rsatool.rsa.Util.string2int;
+import static ua.edu.sumdu.crypto.levchenko.rsatool.Util.int2string;
+import static ua.edu.sumdu.crypto.levchenko.rsatool.Util.string2int;
 
 public class Rsa {
     private Padding padding;

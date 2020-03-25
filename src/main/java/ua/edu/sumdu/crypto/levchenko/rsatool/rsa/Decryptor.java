@@ -1,4 +1,4 @@
-package ua.edu.sumdu.crypto.levchenko.rsatool;
+package ua.edu.sumdu.crypto.levchenko.rsatool.rsa;
 
 import ua.edu.sumdu.crypto.levchenko.rsatool.rsa.KeyPair;
 

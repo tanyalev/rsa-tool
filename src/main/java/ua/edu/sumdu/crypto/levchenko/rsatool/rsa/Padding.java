@@ -1,14 +1,11 @@
 package ua.edu.sumdu.crypto.levchenko.rsatool.rsa;
 
-import ua.edu.sumdu.crypto.levchenko.rsatool.Decryptor;
-import ua.edu.sumdu.crypto.levchenko.rsatool.Encryptor;
-
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Logger;
 
-import static ua.edu.sumdu.crypto.levchenko.rsatool.rsa.Util.*;
+import static ua.edu.sumdu.crypto.levchenko.rsatool.Util.*;
 
 public enum Padding implements Encryptor, Decryptor {
     NONE {
